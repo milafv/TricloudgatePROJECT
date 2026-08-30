@@ -1,0 +1,8 @@
+tosca_definitions_version: tosca_2_0
+description: Simple test blueprint
+node_templates:
+  web_server:
+    type: tosca.nodes.Compute
+    properties:
+      num_cpus: 2
+      mem_size: 4096 MB

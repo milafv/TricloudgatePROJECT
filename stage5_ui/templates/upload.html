@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TriCloudGate - Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>TriCloudGate</h1>
+        <p class="subtitle">Upload your TOSCA blueprint and select a cloud provider</p>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="upload-box">
+                <label for="tosca_file">Select TOSCA file (.yaml or .yml):</label>
+                <input type="file" id="tosca_file" name="tosca_file" accept=".yaml,.yml" required>
+            </div>
+
+            <div class="provider-box">
+                <label for="provider">Select Cloud Provider:</label>
+                <select id="provider" name="provider" required>
+                    <option value="">-- Select --</option>
+                    <option value="aws">AWS</option>
+                    <option value="azure">Azure</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Deploy</button>
+        </form>
+    </div>
+</body>
+</html>
