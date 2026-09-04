@@ -1,0 +1,23 @@
+tosca_definitions_version: tosca_2_0
+description: Medium blueprint with compute and storage
+
+node_templates:
+  app_server:
+    type: tosca.nodes.Compute
+    properties:
+      num_cpus: 4
+      mem_size: 8192 MB
+      disk_size: 100 GB
+      os_type: linux
+
+  app_storage:
+    type: tosca.nodes.Storage.ObjectStorage
+    properties:
+      size: 500 GB
+      name: app-data-bucket
+
+relationship_templates:
+  server_uses_storage:
+    type: tosca.relationships.ConnectsTo
+    source: app_server
+    target: app_storage
