@@ -1,0 +1,12 @@
+resource "aws_s3_bucket" "{{ node_id }}" {
+  bucket = "{{ config.bucket_name }}"
+  tags = {
+    Name    = "{{ config.name }}"
+    Project = "TriCloudGate"
+  }
+}
+
+output "{{ node_id }}_bucket_arn" {
+  description = "ARN of {{ config.name }}"
+  value       = aws_s3_bucket.{{ node_id }}.arn
+}

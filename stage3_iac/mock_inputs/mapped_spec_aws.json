@@ -1,0 +1,36 @@
+{
+  "provider": "aws",
+  "region": "us-east-1",
+  "nodes": [
+    {
+      "id": "web_server",
+      "category": "Compute",
+      "type": "aws_instance",
+      "config": {
+        "ami": "ami-0c101f26f147fa7fd",
+        "instance_type": "t2.micro",
+        "name": "TriCloudGate-WebServer"
+      }
+    },
+
+    {
+      "id": "app_storage",
+      "category": "Storage",
+      "type": "aws_s3_bucket",
+      "config": {
+        "bucket_name": "tricloudgate-app-storage-demo",
+        "name": "TriCloudGate-AppStorage"
+      }
+    },
+    
+    {
+      "id": "main_network",
+      "category": "Networking",
+      "type": "aws_vpc",
+      "config": {
+        "cidr_block": "10.0.0.0/16",
+        "name": "TriCloudGate-MainNetwork"
+      }
+    }
+  ]
+}

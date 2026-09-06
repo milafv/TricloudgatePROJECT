@@ -1,0 +1,12 @@
+resource "aws_vpc" "{{ node_id }}" {
+  cidr_block = "{{ config.cidr_block }}"
+  tags = {
+    Name    = "{{ config.name }}"
+    Project = "TriCloudGate"
+  }
+}
+
+output "{{ node_id }}_vpc_id" {
+  description = "ID of {{ config.name }}"
+  value       = aws_vpc.{{ node_id }}.id
+}

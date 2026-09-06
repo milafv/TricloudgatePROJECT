@@ -1,0 +1,13 @@
+resource "aws_instance" "{{ node_id }}" {
+  ami           = "{{ config.ami }}"
+  instance_type = "{{ config.instance_type }}"
+  tags = {
+    Name    = "{{ config.name }}"
+    Project = "TriCloudGate"
+  }
+}
+
+output "{{ node_id }}_public_ip" {
+  description = "Public IP address of {{ config.name }}"
+  value       = aws_instance.{{ node_id }}.public_ip
+}

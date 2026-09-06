@@ -1,0 +1,37 @@
+{
+  "provider": "azure",
+  "region": "East US",
+  "nodes": [
+    {
+      "id": "azure_vm",
+      "category": "Compute",
+      "type": "azurerm_virtual_machine",
+      "config": {
+        "vm_size": "Standard_B1s",
+        "admin_username": "tcgadmin",
+        "name": "TriCloudGate-AzureVM"
+      }
+    },
+    
+    {
+      "id": "azure_storage",
+      "category": "Storage",
+      "type": "azurerm_storage_account",
+      "config": {
+        "account_tier": "Standard",
+        "replication_type": "LRS",
+        "name": "TriCloudGate-AzureStorage"
+      }
+    },
+
+    {
+      "id": "azure_network",
+      "category": "Networking",
+      "type": "azurerm_virtual_network",
+      "config": {
+        "address_space": "10.1.0.0/16",
+        "name": "TriCloudGate-AzureNetwork"
+      }
+    }
+  ]
+}
