@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TriCloudGate - Processing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>TriCloudGate</h1>
+        <p class="subtitle">Deploying to: {{ provider }}</p>
+
+        <div class="spinner"></div>
+
+        <div id="stages">
+            <p>Starting pipeline...</p>
+        </div>
+    </div>
+
+    <script>
+        const runId = "{{ run_id }}";
+
+        fetch(`/run_pipeline/${runId}`)
+            .then(response => response.json())
+            .then(data => {
+                const stagesDiv = document.getElementById('stages');
+                stagesDiv.innerHTML = '';
+
+                data.stages.forEach(stage => {
+                    const iconClass = stage.status === 'passed' ? 'icon-passed' : 'icon-failed';
+const p = document.createElement('p');
+p.innerHTML = `<span class="${iconClass}"></span>${stage.name}: ${stage.message}`;
+stagesDiv.appendChild(p);
+                });
+
+                if (data.success) {
+                    window.location.href = `/results/${runId}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('stages').innerHTML =
+                    '<p>Error running pipeline. Please check the console.</p>';
+                console.error('Pipeline error:', error);
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TriCloudGate - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container results-container">
+        <h1>TriCloudGate</h1>
+
+        <div class="status-banner {{ 'success' if success else 'failure' }}">
+            {{ 'Deployment Successful' if success else 'Deployment Failed' }}
+        </div>
+
+        <h2>Mapping Table</h2>
+        <table class="mapping-table">
+            <thead>
+                <tr>
+                    <th>Your Component</th>
+                    <th>Maps To</th>
+                    <th>Cloud Service</th>
+                    <th>Reasoning</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in mapping_table %}
+                <tr>
+                    <td>{{ row.node_id }}</td>
+                    <td>{{ row.terraform_resource }}</td>
+                    <td>{{ row.provider_service }}</td>
+                    <td>{{ row.reasoning }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Stage Results</h2>
+        <ul class="stage-list">
+            {% for stage in stages %}
+            <li class="{{ stage.status }}">
+                <span class="{{ 'icon-passed' if stage.status == 'passed' else 'icon-failed' }}"></span>{{ stage.name }}: {{ stage.message }}
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Consistency Report</h2>
+        
+       {% if consistency_report.drift_detected %}
+<div class="warning-banner">
+    <span class="icon-warning"></span>Drift detected — some resources or relationships do not match the original design.
+</div>
+{% endif %}
+        <ul class="consistency-list">
+            {% for check in consistency_report.checks %}
+            <li class="{{ check.status }}">
+                <span class="{{ 'icon-passed' if check.status == 'passed' else 'icon-failed' }}"></span>{{ check.node_id }}: {{ check.message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
