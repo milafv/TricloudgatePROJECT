@@ -1,0 +1,58 @@
+{
+  "compute": {
+    "tosca.nodes.Compute": {
+      "aws": {
+        "provider_service": "EC2",
+        "terraform_resource": "aws_instance",
+        "size_mapping": {
+          "small": "t3.small",
+          "medium": "t3.medium",
+          "large": "t3.large",
+          "xlarge": "t3.xlarge"
+        },
+        "os_ami_mapping": {
+          "linux": "ami-0c55b159cbfafe1f0",
+          "windows": "ami-0abcdef1234567890"
+        }
+      },
+      "azure": {
+        "provider_service": "Virtual Machine",
+        "terraform_resource": "azurerm_virtual_machine",
+        "size_mapping": {
+          "small": "Standard_B1s",
+          "medium": "Standard_B2s",
+          "large": "Standard_B4ms",
+          "xlarge": "Standard_B8ms"
+        },
+        "os_ami_mapping": {
+          "linux": "Canonical:UbuntuServer:18.04-LTS:latest",
+          "windows": "MicrosoftWindowsServer:WindowsServer:2019-Datacenter:latest"
+        }
+      }
+    }
+  },
+  "storage": {
+    "tosca.nodes.Storage.ObjectStorage": {
+      "aws": {
+        "provider_service": "S3",
+        "terraform_resource": "aws_s3_bucket"
+      },
+      "azure": {
+        "provider_service": "Storage Account",
+        "terraform_resource": "azurerm_storage_account"
+      }
+    }
+  },
+  "network": {
+    "tosca.nodes.network.Network": {
+      "aws": {
+        "provider_service": "VPC",
+        "terraform_resource": "aws_vpc"
+      },
+      "azure": {
+        "provider_service": "Virtual Network",
+        "terraform_resource": "azurerm_virtual_network"
+      }
+    }
+  }
+}
