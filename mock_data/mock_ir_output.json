@@ -1,0 +1,54 @@
+{
+  "blueprint_id": "mock-blueprint-001",
+  "nodes": [
+    {
+      "node_id": "web_server_1",
+      "type": "tosca.nodes.Compute",
+      "properties": {
+        "cpu": 2,
+        "memory_mb": 4096,
+        "os": "linux"
+      }
+    },
+    {
+      "node_id": "app_server_1",
+      "type": "tosca.nodes.Compute",
+      "properties": {
+        "cpu": 4,
+        "memory_mb": 8192,
+        "os": "linux"
+      }
+    },
+    {
+      "node_id": "db_server_1",
+      "type": "tosca.nodes.Compute",
+      "properties": {
+        "cpu": 8,
+        "memory_mb": 16384,
+        "os": "linux"
+      }
+    },
+    {
+      "node_id": "backup_storage",
+      "type": "tosca.nodes.Storage.ObjectStorage",
+      "properties": {
+        "name": "backup_storage_bucket"
+      }
+    },
+    {
+      "node_id": "main_network",
+      "type": "tosca.nodes.network.Network",
+      "properties": {
+        "cidr": "10.0.0.0/16",
+        "name": "main-vnet"
+      }
+    },
+    {
+      "node_id": "cache_service_1",
+      "type": "tosca.nodes.Container.Application.Docker",
+      "properties": {
+        "image": "redis:latest"
+      }
+    }
+  ]
+}
